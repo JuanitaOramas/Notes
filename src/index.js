@@ -1,7 +1,19 @@
 // codigo del servidor
 const express = require('express'); // importa express
 const mongoose = require('mongoose');
+const httpServer = require("http").createServer();
+const io = require('socket.io') (httpServer, {});;
+
+
 require("dotenv").config();
+
+
+
+
+
+
+/////////////////////////////
+
 const userRoutes  = require('./routes/user');
 
 const app = express();
@@ -25,6 +37,10 @@ mongoose
     .connect("mongodb+srv://admin:dm0TpuChZqUfJC43@cluster0.zkd1jcg.mongodb.net/?retryWrites=true&w=majority")
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((error) => console.error(error));
+
+/////////////////////////////
+
+
 
 
 
