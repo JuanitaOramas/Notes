@@ -1,47 +1,27 @@
+
+
 // codigo del servidor
 const express = require('express'); // importa express
-const mongoose = require('mongoose');
-const httpServer = require("http").createServer();
-const io = require('socket.io') (httpServer, {});;
+// const mongoose = require('mongoose');
+const connectDB = require("./db")
 
 
 require("dotenv").config();
 
 
-
-
-
+connectDB();
 
 /////////////////////////////
 
-const userRoutes  = require('./routes/user');
 
-const app = express();
+const app = require("./app");
 const port = process.env.PORT || 9001; // define puerto para correr
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer);
 
 //middleware
 //localhost:9000/api
-app.use(express.json()); // transforma a un objeto js
-app.use('/api', userRoutes);
+//app.use(express.json()); // transforma a un objeto js
 
 
-
-//routes
-
-// localhost:9000
-app.get('/', (req, res) => {
-    res.send('Welcome to my API'); // responde con texto plano
-});
-
-mongoose
-    .connect("mongodb+srv://admin:dm0TpuChZqUfJC43@cluster0.zkd1jcg.mongodb.net/?retryWrites=true&w=majority")
-    .then(() => console.log("Connected to MongoDB Atlas"))
-    .catch((error) => console.error(error));
-
-/////////////////////////////
-
-
-
-
-
-app.listen(port, () => console.log('server listening on port', port));
+httpServer.listen(port, () => console.log('server listening on port', port));
