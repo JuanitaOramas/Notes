@@ -1,6 +1,7 @@
 //server
 // escucha eventos de websockets
 // puede enviar o escuchar eventos 
+const Note = require('./models/Note');
 const { emit } = require('./models/Note');
 const noteSchema = require('./models/Note');
 
@@ -35,10 +36,25 @@ module.exports = function(io) {
         });
         
         // console.log(socket.handshake); // direccion de conexion info
-        socket.on("client:deletenote", async (id) =>{
+        socket.on("client:deletenote", async (id) => {
             await noteSchema.findByIdAndDelete(id);
             emitNotes();
         })
+
+        socket.on('client:getnote', async id =>{
+            const note = await noteSchema.findById(id);
+            io.emit('server:selectedNote', note)
+            console.log(note);
+        })
+
+        socket.on('client:updateNote', async (updatedNote)=> {
+            await noteSchema.findByIdAndUpdate(updatedNote._id, {
+                title: updatedNote.title,
+                description: updatedNote.description
+            })
+            emitNotes();
+        })
+        
     });
 
 

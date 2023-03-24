@@ -1,11 +1,12 @@
 // archivo del frontend
 
-import {loadNotes, onNewNote} from './socket.js';
-import {onHandleSubmit, renderNotes, appendNote} from './ui.js';
+import {loadNotes, onNewNote, onSelected} from './socket.js';
+import {onHandleSubmit, renderNotes, appendNote,fillForm} from './ui.js';
 
 
 onNewNote(appendNote);
 loadNotes(renderNotes);
+onSelected(fillForm);
 
 // Form notes
 const noteForm = document.querySelector('#noteForm')
