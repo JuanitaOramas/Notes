@@ -17,8 +17,18 @@ connectDB();
 const app = require("./app");
 const port = process.env.PORT || 9001; // define puerto para correr
 const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer);
+const io = require("socket.io")(httpServer,{
+    cors: {
+        origin: "http://localhost:3001", // replace with your client URL
+        methods: ["GET", "POST"]
+      }
+} );
 const sockets = require("./sockets");
+const cors = require('cors');
+
+
+app.use(cors());
+
 
 sockets(io);
 
