@@ -18,6 +18,10 @@ const noteSchema = mongoose.Schema({
     image: {
         type: String,
     },
+    isLike: {
+        type: Boolean,
+    },
+    
 }, {
     timestamps: true
 });
