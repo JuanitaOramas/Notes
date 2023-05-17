@@ -1,5 +1,5 @@
 const express = require("express");
-const userSchema = require("../models/user");
+const userSchema = require("./models/user");
 
 const router = express.Router();
 
@@ -43,6 +43,7 @@ router.put('/users/:id', (req, res) => {
 });
 
 
+// delete
 router.delete('/users/:id', (req, res) => {
     const {id} = req.params; // obtiene parametro id de la URL
     userSchema
